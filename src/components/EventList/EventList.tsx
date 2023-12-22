@@ -7,6 +7,7 @@ import { ParticipantListItem } from "@components/ParticipantListItem/Participant
 import { EventListResponse, Event } from "types/event";
 import { prettyDate } from "@/utils/prettyDate";
 import { TextIcon } from "@components/base/TextIcon";
+import { AddEventButton } from "@components/AddEventButton/AddEventButton";
 import { formatMoney } from "@/utils/formatMoney";
 
 interface EventListProps extends HTMLAttributes<HTMLDivElement> {
@@ -24,6 +25,9 @@ export const EventList = (props: EventListProps) => {
     setSelectedEvent(event);
   };
 
+  const addEvent = () => {
+    console.log("Event add!");
+  };
   // TODO: participants empty state
 
   return (
@@ -41,9 +45,7 @@ export const EventList = (props: EventListProps) => {
               onClick={() => onEventClick(event)}
             />
           ))}
-          <div className="flex justify-center items-center p-4 max-w-96 min-w-96 md:w-96 sm:w-full w-lg min-h-40  rounded shadow  bg-white">
-            <div className="text-3x1 font-bold">+</div>
-          </div>
+          <AddEventButton onClick={addEvent} />
         </div>
       </div>
       <Sidebar open={openDetail} onClose={() => setOpenDetail(false)}>

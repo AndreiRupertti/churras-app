@@ -7,7 +7,7 @@ interface Header {
 export const Header = (props: Header) => {
   return (
     <div
-      className="flex h-64 justify-center items-center"
+      className="flex h-64 justify-center items-center bg-yellow-300"
       style={{
         backgroundImage: `url(${bg.src})`,
       }}

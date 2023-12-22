@@ -1,4 +1,5 @@
 import { Header } from "@components/base/Header";
+import { Footer } from "@components/base/Footer";
 import { EventList } from "@components/EventList/EventList";
 import "@globals/globals.css";
 import "tailwindcss/tailwind.css";
@@ -8,11 +9,10 @@ export default async function Home() {
   const { items: events = [] } = await getEvents();
 
   return (
-    <div className="w-full flex flex-row flex-wrap justify-center bg-yellow-300">
-      <div className="flex flex-col justify-center w-full">
-        <Header text="Agenda de Churras" />
-        <EventList events={events} />
-      </div>
+    <div className="flex flex-col justify-center w-full">
+      <Header text="Agenda de Churras" />
+      <EventList events={events} />
+      <Footer />
     </div>
   );
 }

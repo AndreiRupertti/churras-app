@@ -7,24 +7,36 @@ import { HTMLAttributes } from "react";
 const icons = {
   people: PeopleIcon,
   dollarSign: DollarSignIcon,
-  bqq: BBQIcon,
+  bbq: BBQIcon,
   close: CloseIcon,
 };
 
-type Size = 12 | 14 | 16 | 18 | 20 | 22 | 24 | 26 | 28 | 30 | 32 | 40 | 50 | 60;
+type Size = number;
+
 export interface IconProps extends HTMLAttributes<HTMLOrSVGElement> {
   name: keyof typeof icons;
   size: Size | [Size, Size];
+  color?: "black" | "white" | "primary";
 }
 
-export const Icon = ({ size, name, ...svgProps }: IconProps) => {
+export const Icon = ({ size, name, color, ...svgProps }: IconProps) => {
   const IconComponent = icons[name];
   const defaultSize = 16;
   const [width, height] = Array.isArray(size)
     ? size
     : [size ?? defaultSize, size ?? defaultSize];
 
+  const colors = {
+    black: "#000000",
+    white: "#FFFFFF",
+    primary: "#FFD836",
+  };
+
   return (
-    <IconComponent {...svgProps} style={{ width, height }} fill="#FFD836" />
+    <IconComponent
+      {...svgProps}
+      style={{ width, height }}
+      fill={colors[color ?? "primary"]}
+    />
   );
 };
