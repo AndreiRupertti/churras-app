@@ -31,6 +31,9 @@
       ],
       "@globals*": [
         "./src/globals/*"
+      ],
+      "@types*": [
+        "./src/types/*"
       ]
     },
     "forceConsistentCasingInFileNames": true

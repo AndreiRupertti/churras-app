@@ -9,7 +9,9 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      'base': ['Raleway', 'Tofu', 'Arial', 'sans-serif']
+    }
   },
   plugins: [],
 }
