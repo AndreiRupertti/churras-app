@@ -26,8 +26,14 @@
       "@/*": [
         "./src/*"
       ],
-      "@/components*": [
+      "@public*": [
+        "./public/*"
+      ],
+      "@components*": [
         "./src/components/*"
+      ],
+      "@utils*": [
+        "./src/utils/*"
       ],
       "@globals*": [
         "./src/globals/*"

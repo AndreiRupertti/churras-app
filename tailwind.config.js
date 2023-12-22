@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'base': ['Raleway', 'Tofu', 'Arial', 'sans-serif']
-    }
+    },
   },
   plugins: [],
 }

@@ -2,7 +2,7 @@ import { randomInt } from 'crypto'
 import { NextResponse } from 'next/server'
 import { setTimeout } from 'timers/promises'
 
-export async function GET(request: Request) {
+export async function GET() {
 
   const eventsResponse = {
     items: [
