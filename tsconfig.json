@@ -38,8 +38,8 @@
       "@globals*": [
         "./src/globals/*"
       ],
-      "@types*": [
-        "./src/types/*"
+      "types*": [
+        "./src/@types/*"
       ]
     },
     "forceConsistentCasingInFileNames": true
