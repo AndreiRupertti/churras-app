@@ -20,7 +20,7 @@ export const EventCard = (props: EventCardProps) => {
   return (
     <div
       {...divProps}
-      className="relative flex flex-col p-4 min-w-80 md:max-w-1/3 md:w-80 w-full w-lg min-h-40 justify-between rounded shadow-lg  bg-white"
+      className="relative flex flex-col p-4 w-full md:max-w-96 md:w-96 min-h-40 justify-between rounded shadow-xl bg-white"
     >
       {isEventOver && (
         <Badge label="Finalizado" color="green" position="top-right" />

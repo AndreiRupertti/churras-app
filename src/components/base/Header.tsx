@@ -1,10 +1,17 @@
+import bg from "public/bbq-pattern.png";
+
 interface Header {
   text: string;
 }
 
 export const Header = (props: Header) => {
   return (
-    <div className="flex h-52 md:h-64 justify-center items-center bg-red-500">
+    <div
+      className="flex h-64 justify-center items-center"
+      style={{
+        backgroundImage: `url(${bg.src})`,
+      }}
+    >
       <h1 className="text-4xl md:text-5xl font-extrabold">{props.text}</h1>
     </div>
   );

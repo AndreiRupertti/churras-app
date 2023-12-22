@@ -1,4 +1,5 @@
-import { HTMLAttributes } from "react";
+import { formatMoney } from "@/utils/formatMoney";
+import { HTMLAttributes, useState } from "react";
 
 interface ParticipantListItemProps extends HTMLAttributes<HTMLInputElement> {
   initialValue: boolean;
@@ -8,17 +9,32 @@ interface ParticipantListItemProps extends HTMLAttributes<HTMLInputElement> {
 }
 
 export const ParticipantListItem = (props: ParticipantListItemProps) => {
+  const [checkbox, setCheckbox] = useState(props.initialValue);
+  const toggleCheckbox = () => {
+    setCheckbox(!checkbox);
+    props.onToggle?.(!checkbox);
+  };
   return (
-    <div className="h-16">
-      <div className="4">
-        <label className="text-xl font-semibold flex flex-row gap-5">
+    <div className="h-12 p-y-5 border-b-2 border-dotted ">
+      <div className="flex flex-row justify-between">
+        <label
+          role="button"
+          className="text-xl font-semibold flex flex-row gap-5"
+        >
           <input
-            className="appearance-none w-6 h-6 rounded-full checked:bg-yellow-500 border-2"
+            role="button"
+            className="appearance-none w-6 h-6 rounded-full checked:bg-yellow-500 border-2 border-yellow-500 self-center"
             type="checkbox"
-            checked={props.initialValue}
+            checked={checkbox}
+            onClick={toggleCheckbox}
           />
           {props.name}
         </label>
+        <p
+          className={`text-xl font-semibold ${checkbox ? "line-through" : ""}`}
+        >
+          {formatMoney(props.amountToPay, "BRL")}
+        </p>
       </div>
     </div>
   );

@@ -5,6 +5,9 @@ import { EventCard } from "@components/EventCard/EventCard";
 import { Sidebar } from "@components/base/Sidebar";
 import { ParticipantListItem } from "@components/ParticipantListItem/ParticipantListItem";
 import { EventListResponse, Event } from "types/event";
+import { prettyDate } from "@/utils/prettyDate";
+import { TextIcon } from "@components/base/TextIcon";
+import { formatMoney } from "@/utils/formatMoney";
 
 interface EventListProps extends HTMLAttributes<HTMLDivElement> {
   events: EventListResponse["items"];
@@ -21,10 +24,12 @@ export const EventList = (props: EventListProps) => {
     setSelectedEvent(event);
   };
 
+  // TODO: participants empty state
+
   return (
     <>
-      <div {...divProps} className="flex flex-col self-center w-11/12">
-        <div className="flex flex-row justify-start flex-wrap gap-4 -mt-8">
+      <div {...divProps} className="flex flex-col w-full bg-white">
+        <div className="flex flex-row justify-self-center flex-wrap gap-4 px-3 md:pl-24 -mt-8">
           {events.map((event) => (
             <EventCard
               role="button"
@@ -36,15 +41,39 @@ export const EventList = (props: EventListProps) => {
               onClick={() => onEventClick(event)}
             />
           ))}
-          <div className="flex justify-center items-center p-4 max-w-80 min-w-80 md:w-80 sm:w-full w-lg min-h-40  rounded shadow shadow-blue-500/40  bg-white">
+          <div className="flex justify-center items-center p-4 max-w-96 min-w-96 md:w-96 sm:w-full w-lg min-h-40  rounded shadow  bg-white">
             <div className="text-3x1 font-bold">+</div>
           </div>
         </div>
       </div>
       <Sidebar open={openDetail} onClose={() => setOpenDetail(false)}>
-        <div className="flex flex-col gap-2 p-5">
-          {selectedEvent &&
-            selectedEvent.participants.map((person) => (
+        {selectedEvent && (
+          <div className="flex flex-col gap-2 mx-2 md:mx-12 p-5 rounded-lg shadow-2xl border-2 bg-white -mt-24">
+            <div className="flex md:flex-row flex-col justify-between mb-8">
+              <div>
+                <div className="text-3xl font-bold">
+                  {prettyDate(selectedEvent.date, "pt-br")}
+                </div>
+                <div className="text-3xl font-bold text-l line-clamp-2">
+                  {selectedEvent.name}
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <TextIcon
+                  text={selectedEvent.totalParticipants}
+                  iconName="people"
+                  fontSize="3xl"
+                  size={[40, 32]}
+                />
+                <TextIcon
+                  text={formatMoney(selectedEvent.totalPrice, "BRL")}
+                  iconName="dollarSign"
+                  fontSize="3xl"
+                  size={40}
+                />
+              </div>
+            </div>
+            {selectedEvent.participants.map((person) => (
               <div key={person.name}>
                 <ParticipantListItem
                   initialValue={person.isPaid}
@@ -53,7 +82,8 @@ export const EventList = (props: EventListProps) => {
                 />
               </div>
             ))}
-        </div>
+          </div>
+        )}
       </Sidebar>
     </>
   );
