@@ -3,12 +3,18 @@
 import { HTMLAttributes, useState } from "react";
 import { EventCard } from "@components/EventCard/EventCard";
 import { Sidebar } from "@components/base/Sidebar";
+import { TextInput } from "@components/base/TextInput";
+import { TextAreaInput } from "@components/base/TextAreaInput";
+import { Button } from "@components/base/Button";
+import { PriceOptionsInput } from "@components/base/PriceOptionsInput";
+import { DatePickerInput } from "@components/base/DatePickerInput";
 import { ParticipantListItem } from "@components/ParticipantListItem/ParticipantListItem";
 import { EventListResponse, Event } from "types/event";
 import { prettyDate } from "@/utils/prettyDate";
 import { TextIcon } from "@components/base/TextIcon";
 import { AddEventButton } from "@components/AddEventButton/AddEventButton";
 import { formatMoney } from "@/utils/formatMoney";
+import { Modal } from "../base/Modal";
 
 interface EventListProps extends HTMLAttributes<HTMLDivElement> {
   events: EventListResponse["items"];
@@ -16,6 +22,7 @@ interface EventListProps extends HTMLAttributes<HTMLDivElement> {
 
 export const EventList = (props: EventListProps) => {
   const [openDetail, setOpenDetail] = useState(false);
+  const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   const { events, ...divProps } = props;
@@ -27,6 +34,7 @@ export const EventList = (props: EventListProps) => {
 
   const addEvent = () => {
     console.log("Event add!");
+    setOpenCreateEvent(true);
   };
   // TODO: participants empty state
 
@@ -87,6 +95,29 @@ export const EventList = (props: EventListProps) => {
           </div>
         )}
       </Sidebar>
+      <Modal
+        title="Novo Churras"
+        open={openCreateEvent}
+        onClose={() => setOpenCreateEvent(false)}
+      >
+        <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-col gap-2">
+            <TextInput label="Nome do Evento:" />
+            <DatePickerInput label="Data do evento:" />
+            <PriceOptionsInput label="Opções de preço:" />
+            <TextAreaInput label="Descrição:" className="w-full md:w-10/12" />
+          </div>
+          <div className="flex flex-col md:flex-row justify-end md:justify-end gap-3 h-40 md:h-auto p-5 pt-14">
+            <Button
+              type="secondary"
+              label="Cancelar"
+              className="w-full md:w-52"
+              onClick={() => setOpenCreateEvent(false)}
+            />
+            <Button type="primary" label="Salvar" className="w-full md:w-52" />
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

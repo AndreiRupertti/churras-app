@@ -9,7 +9,7 @@ export default async function Home() {
   const { items: events = [] } = await getEvents();
 
   return (
-    <div className="flex flex-col justify-center w-full">
+    <div className="flex flex-col">
       <Header text="Agenda de Churras" />
       <EventList events={events} />
       <Footer />

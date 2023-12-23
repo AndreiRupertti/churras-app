@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { FC } from "react";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren } from "react";
 import { Icon } from "./Icon";
 import Logo from "public/logo.svg";
 import bg from "public/bbq-pattern.png";
