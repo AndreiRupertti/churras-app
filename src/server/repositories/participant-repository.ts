@@ -7,7 +7,9 @@ export const ParticipantRepository = (db: ISchema) => ({
   insert(participant: ParticipantInput) {
     const id = randomUUID();
     db.none(`
-          insert into participants values('${id}', '${participant.name}', '${participant.eventId}', '${participant.amountToPay}', ${participant.isPaid});
+          insert into participants values('${id}', '${participant.name}', '${
+            participant.eventId
+          }', '${participant.amountToPay}', ${participant.isPaid ?? false});
       `);
 
     return camelizeKeys(

@@ -29,6 +29,8 @@ export interface Participant {
 export interface ParticipantInput {
   name: string;
   amountToPay: number;
+  eventId: string;
+  isPaid?: string;
 }
 
 export interface PriceOption {

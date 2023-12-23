@@ -42,19 +42,17 @@ export const EventList = (props: EventListProps) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(submitInfo),
-    })
-      .then((res) => {
-        console.log(res);
-        if (res.status > 200 && res.status < 400) {
-          setOpenCreateEvent(false);
-          revalidateEventList();
-        } else {
-          alert(
-            "Erro ao criar o event. Preencha todos os campos e tente novamente!"
-          );
-        }
-      })
-      .catch((err) => {});
+    }).then((res) => {
+      console.log(res);
+      if (res.status >= 200 && res.status < 400) {
+        setOpenCreateEvent(false);
+        revalidateEventList();
+      } else {
+        alert(
+          "Erro ao criar o event. Preencha todos os campos e tente novamente!"
+        );
+      }
+    });
   };
   // TODO: participants empty state
 

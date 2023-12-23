@@ -1,6 +1,12 @@
 import { formatMoney } from "@utils/formatMoney";
 import { Button } from "@components/base/Button";
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import {
+  HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+  KeyboardEvent,
+} from "react";
 import { ParticipantInput, Event } from "types/event";
 
 interface AddParticipantItemProps extends HTMLAttributes<HTMLInputElement> {
@@ -21,11 +27,15 @@ export const AddParticipantItem = ({
   }, [event.id]);
 
   const onSave = () => {
-    const participantInput = {
-      name: inputRef.current?.value ?? "",
-      amountToPay: Number(priceRef.current?.value) ?? 0,
-    };
-    onAdd?.(participantInput);
+    if (inputRef.current) {
+      const participantInput = {
+        name: inputRef.current?.value ?? "",
+        amountToPay: Number(priceRef.current?.value) ?? 0,
+        eventId: event.id,
+      };
+      onAdd?.(participantInput);
+      inputRef.current.value = "";
+    }
   };
 
   const showForm = () => {
@@ -38,10 +48,14 @@ export const AddParticipantItem = ({
     }
   }, [showAddForm]);
 
-  const hideForm = () => setShowAddForm(false);
-
+  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSave();
+    }
+  };
   return (
-    <div className="h-12 p-y-5 ">
+    <div className="h-12 p-y-5" onKeyDown={onEnterPress}>
       <Button
         label="Novo Participante"
         decoration="text"
