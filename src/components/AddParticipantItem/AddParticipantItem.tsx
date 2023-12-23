@@ -25,7 +25,6 @@ export const AddParticipantItem = ({
       name: inputRef.current?.value ?? "",
       amountToPay: Number(priceRef.current?.value) ?? 0,
     };
-    console.log(participantInput);
     onAdd?.(participantInput);
   };
 
@@ -45,7 +44,7 @@ export const AddParticipantItem = ({
     <div className="h-12 p-y-5 ">
       <Button
         label="Novo Participante"
-        type="text"
+        decoration="text"
         onClick={showForm}
         className={`${showAddForm ? "hidden" : "visible"}`}
       >
@@ -61,7 +60,7 @@ export const AddParticipantItem = ({
             ref={inputRef}
             className="appearance-none w-full focus:outline-none"
             type="text"
-            placeholder="> Novo participante..."
+            placeholder="Novo participante..."
           />
           <select
             ref={priceRef}

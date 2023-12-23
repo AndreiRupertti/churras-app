@@ -5,9 +5,14 @@ export interface Event {
   date: string;
   totalPrice: number;
   totalParticipants: number;
-  participants: Participant[]
-  priceOptions: number[]
+  participants: Participant[];
+  priceOptions: number[];
 }
+
+export type EventInput = Omit<
+  Event,
+  "id" | "participants" | "priceOptions" | "totalParticipants"
+>;
 
 export interface EventListResponse {
   items: Event[];
@@ -25,3 +30,10 @@ export interface ParticipantInput {
   name: string;
   amountToPay: number;
 }
+
+export interface PriceOption {
+  id: string;
+  eventId: string;
+  amount: number;
+}
+export type PriceOptionInput = Omit<PriceOption, "id">;

@@ -19,7 +19,7 @@ export default async function Home() {
 
 const getEvents = async (): Promise<EventListResponse> => {
   return fetch(`${process.env.API_URL}/event/list`, {
-    next: { revalidate: 0 },
+    next: { revalidate: 0, tags: ["event-list"] },
   })
     .then((res) => res.json())
     .catch((e) => {

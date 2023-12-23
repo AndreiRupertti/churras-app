@@ -1,17 +1,14 @@
 "use client";
 
 import { AddEventButton } from "@components/AddEventButton/AddEventButton";
-import { Button } from "@components/base/Button";
-import { DatePickerInput } from "@components/base/DatePickerInput";
 import { Modal } from "@components/base/Modal";
-import { PriceOptionsInput } from "@components/base/PriceOptionsInput";
 import { Sidebar } from "@components/base/Sidebar";
-import { TextAreaInput } from "@components/base/TextAreaInput";
-import { TextInput } from "@components/base/TextInput";
 import { EventCard } from "@components/EventCard/EventCard";
 import { EventDetail } from "@components/EventDetail/EventDetail";
+import { EventForm } from "@components/EventForm/EventForm";
 import { HTMLAttributes, useState } from "react";
-import { Event, EventListResponse } from "types/event";
+import { Event, EventInput, EventListResponse } from "types/event";
+import { revalidateEventList } from "@app/actions";
 
 interface EventListProps extends HTMLAttributes<HTMLDivElement> {
   events: EventListResponse["items"];
@@ -30,13 +27,34 @@ export const EventList = (props: EventListProps) => {
   };
 
   const addEvent = () => {
-    console.log("Event add!");
     setOpenCreateEvent(true);
   };
 
   const onCloseSideBar = () => {
     setOpenDetail(false);
     setSelectedEvent(null);
+  };
+
+  const onSaveEvent = (submitInfo: EventInput) => {
+    fetch("http://localhost:3000/api/v1/event", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitInfo),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status > 200 && res.status < 400) {
+          setOpenCreateEvent(false);
+          revalidateEventList();
+        } else {
+          alert(
+            "Erro ao criar o event. Preencha todos os campos e tente novamente!"
+          );
+        }
+      })
+      .catch((err) => {});
   };
   // TODO: participants empty state
 
@@ -66,23 +84,10 @@ export const EventList = (props: EventListProps) => {
         open={openCreateEvent}
         onClose={() => setOpenCreateEvent(false)}
       >
-        <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-2">
-            <TextInput label="Nome do Evento:" />
-            <DatePickerInput label="Data do evento:" />
-            <PriceOptionsInput label="Opções de preço:" maxOpts="10" />
-            <TextAreaInput label="Descrição:" className="w-full md:w-10/12" />
-          </div>
-          <div className="flex flex-col md:flex-row justify-end md:justify-end gap-3 h-40 md:h-auto p-5 pt-14">
-            <Button
-              type="secondary"
-              label="Cancelar"
-              className="w-full md:w-52"
-              onClick={() => setOpenCreateEvent(false)}
-            />
-            <Button type="primary" label="Salvar" className="w-full md:w-52" />
-          </div>
-        </div>
+        <EventForm
+          onSubmit={onSaveEvent}
+          onCancel={() => setOpenCreateEvent(false)}
+        />
       </Modal>
     </>
   );
