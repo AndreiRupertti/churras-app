@@ -1,4 +1,4 @@
-import { formatMoney } from "@/utils/formatMoney";
+import { formatMoney } from "@utils/formatMoney";
 import { HTMLAttributes, useState } from "react";
 
 interface ParticipantListItemProps extends HTMLAttributes<HTMLInputElement> {
@@ -26,7 +26,7 @@ export const ParticipantListItem = (props: ParticipantListItemProps) => {
             className="appearance-none w-6 h-6 rounded-full checked:bg-yellow-500 border-2 border-yellow-500 self-center"
             type="checkbox"
             checked={checkbox}
-            onClick={toggleCheckbox}
+            onChange={toggleCheckbox}
           />
           {props.name}
         </label>

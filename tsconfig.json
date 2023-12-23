@@ -38,6 +38,9 @@
       "@globals*": [
         "./src/globals/*"
       ],
+      "@server*": [
+        "./src/server/*"
+      ],
       "types*": [
         "./src/@types/*"
       ]

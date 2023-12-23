@@ -1,10 +1,11 @@
-import { formatMoney } from "@/utils/formatMoney";
+import { formatMoney } from "@utils/formatMoney";
 import { ChangeEvent, HTMLAttributes, useRef, useState } from "react";
 
 interface PriceOptionsInputProps
   extends Omit<HTMLAttributes<HTMLInputElement>, "onInput"> {
   onInput?: (priceOpts: number[]) => void;
   label: string;
+  maxOpts: string | number;
 }
 
 export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
@@ -12,14 +13,18 @@ export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
   const [pricesOpts, setPriceOpts] = useState<number[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const { label, onInput, ...inputProps } = props;
+  const { label, onInput, maxOpts, ...inputProps } = props;
   const addPrice = () => {
     const value = ref.current?.value.replace(",", ".") ?? "";
 
     if (validateValue(value)) {
-      setError(null);
-      setPriceOpts([...pricesOpts, Number(value)]);
-      onInput?.(pricesOpts);
+      if (pricesOpts.length + 1 > maxOpts) {
+        setError(`Máximo de ${maxOpts} opções`);
+      } else {
+        setError(null);
+        setPriceOpts([...pricesOpts, Number(value)]);
+        onInput?.(pricesOpts);
+      }
     } else {
       setError("Valor inválido!");
     }

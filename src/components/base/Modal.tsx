@@ -48,7 +48,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = ({
   return (
     <>
       <div
-        className={`absolute top-0 left-0 w-full h-full bg-gray-700 opacity-70 ${overlayVisibility}`}
+        className={`absolute top-0 left-0 w-full h-full bg-gray-700 opacity-70  ${overlayVisibility}`}
         onClick={onCloseEvent}
       />
       <div className={`absolute flex top-0 left-0 w-full h-full`}>
