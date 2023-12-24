@@ -28,7 +28,7 @@ export const ApiClient = {
   },
   createEvent(eventInput: EventInput, reqInit?: RequestInit): Promise<Event> {
     return httpClient
-      .post(`${getBaseUrl()}/api/v1/events`, eventInput, reqInit)
+      .post(`${getBaseUrl()}/api/v1/event`, eventInput, reqInit)
       .then((res) => responseAdapter<Event>(res));
   },
   createParticipant(

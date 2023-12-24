@@ -42,31 +42,30 @@ export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
   };
 
   return (
-    <div className="flex flex-col w-1/2 gap-4">
-      <div className="flex flex-row items-end gap-3">
-        <MoneyInput
-          currency="R$"
-          label="Opções de preço:"
-          errorText={error}
-          ref={ref}
+    <div className="flex flex-col w-full gap-4">
+      <MoneyInput
+        currency="R$"
+        label="Opções de preço:"
+        errorText={error}
+        ref={ref}
+        {...inputProps}
+      >
+        <div
+          className="rounded-lg bg-blue-500 w-12 h-12 min-w-12 text-2xlg text-white flex justify-center items-center"
+          onClick={addPrice}
         >
-          <div
-            className="rounded-lg bg-blue-500 w-12 h-12 text-2xlg text-white flex justify-center items-center"
-            onClick={addPrice}
-          >
-            <span>+</span>
-          </div>
-        </MoneyInput>
-      </div>
+          <span>+</span>
+        </div>
+      </MoneyInput>
       {pricesOpts.map((price, index) => (
         <div
           key={`${index}-price`}
-          className="p-2 rounded-lg bg-blue-500 flex fle-row justify-between text-white"
+          className="p-2 max-w-40 rounded-lg bg-blue-500 flex flex-row justify-between text-white"
         >
           {formatMoney(price, "BRL")}
           <span
             role="button"
-            className="w-2/12 flex justify-center border-l-2 border-dotted text-white"
+            className="w-2/12 max-w-10 min-w-8 flex justify-center border-l-2 border-dotted text-white"
             onClick={() => removePrice(index)}
           >
             X

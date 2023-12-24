@@ -53,7 +53,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = ({
       />
       <div className={`absolute flex top-0 left-0 w-full h-full`}>
         <div
-          className={`fixed top-1/2 left-1/2 w-full h-full md:h-auto -translate-x-1/2 -translate-y-1/2 md:w-2/4 shadow-2xl bg-white md:rounded-lg`}
+          className={`fixed top-1/2 left-1/2 w-full h-full md:h-auto -translate-x-1/2 -translate-y-1/2 md:w-2/4 max-w-4xl shadow-2xl bg-white md:rounded-lg`}
         >
           <div className="flex flex-row text-center">
             <Icon role="button" name="close" size={60} onClick={onCloseEvent} />
@@ -63,7 +63,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = ({
               </h3>
             )}
           </div>
-          <div className="min-h-40 px-4 pt-4">{children}</div>
+          <div className="min-h-40 p-4 lg:p-8">{children}</div>
         </div>
       </div>
     </>

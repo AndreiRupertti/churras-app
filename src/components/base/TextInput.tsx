@@ -33,27 +33,23 @@ export const TextInput = forwardRef<Ref, TextInputProps>(
         : "border-2";
 
     return (
-      <div>
-        <label
-          role="button"
-          className="text-xl font-semibold flex flex-col gap-1"
-        >
-          {label}
-          <input
-            {...inputProps}
-            className={`p-1 rounded-lg outline-black ${outline}`}
-            type={type}
-            name={inputProps.id}
-            ref={ref}
-            onChange={onChange}
-          />
-          <span
-            className={`text-red-500 ${errorText ? "visible" : "invisible"}`}
-          >
-            {errorText}
-          </span>
-        </label>
-      </div>
+      <label
+        role="button"
+        className="text-xl font-semibold flex flex-col gap-1"
+      >
+        {label}
+        <input
+          {...inputProps}
+          className={`p-1 rounded-lg outline-black ${outline}`}
+          type={type}
+          name={inputProps.id}
+          ref={ref}
+          onChange={onChange}
+        />
+        <span className={`text-red-500 ${errorText ? "visible" : "invisible"}`}>
+          {errorText}
+        </span>
+      </label>
     );
   }
 );

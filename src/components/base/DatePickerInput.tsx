@@ -14,7 +14,7 @@ export const DatePickerInput = (props: DatePickerInputProps) => {
   };
 
   return (
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-row justify-between ">
       <label
         role="button"
         className="text-xl font-semibold flex flex-col gap-1"

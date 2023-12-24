@@ -49,8 +49,6 @@ export const EventList = (props: EventListProps) => {
       });
   };
 
-  // TODO: participants empty state
-
   return (
     <>
       <div {...divProps} className="flex flex-col w-full bg-white">

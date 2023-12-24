@@ -24,9 +24,10 @@ export const EventForm: FunctionComponent<EventFormProps> = (props) => {
     e.preventDefault();
 
     // @ts-ignore
-    const [nameInput, priceInput, dateInput, _priceOptInput, descriptionInput] =
+    const [nameInput, dateInput, priceInput, _priceOptInput, descriptionInput] =
       e.target;
 
+    console.log(e);
     const submitInfo = {
       name: nameInput.value,
       totalPrice: Number(priceInput.value),
@@ -40,23 +41,31 @@ export const EventForm: FunctionComponent<EventFormProps> = (props) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="flex flex-col justify-between h-full">
-        <div className="flex flex-col gap-2 md:w-10/12">
+        <div className="flex flex-col gap-2 w-full">
           <TextInput id="name" label="Nome do Evento:" />
           <DatePickerInput id="date" label="Data do Evento:" />
-          <MoneyInput id="totalPrice" label="Valor Total:" currency="R$" />
-          <PriceOptionsInput
-            id="priceOptions"
-            label="Opções de preço:"
-            maxOpts="10"
-            onInput={(opts) => setPriceOptions(opts)}
-          />
+          <div className="flex flex-col gap-2 max-w-80">
+            <MoneyInput
+              id="totalPrice"
+              label="Valor Total:"
+              currency="R$"
+              placeholder="0,00"
+            />
+            <PriceOptionsInput
+              id="priceOptions"
+              label="Opções de preço:"
+              maxOpts="10"
+              placeholder="0,00"
+              onInput={(opts) => setPriceOptions(opts)}
+            />
+          </div>
           <TextAreaInput
             id="description"
             label="Descrição:"
             className="w-full"
           />
         </div>
-        <div className="flex flex-col md:flex-row justify-end md:justify-end gap-3 h-40 md:h-auto p-5 pt-14">
+        <div className="flex flex-col md:flex-row justify-end md:justify-end gap-3 h-40 md:h-auto  pt-14">
           <Button
             decoration="secondary"
             label="Cancelar"

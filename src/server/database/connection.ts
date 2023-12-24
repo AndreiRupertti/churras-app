@@ -1,11 +1,7 @@
-import { DataType, newDb } from "pg-mem";
+import { newDb } from "pg-mem";
 import * as mocks from "./mocks";
 
-export function createConnection() {
-  const db = newDb({
-    noErrorDiagnostic: true,
-  });
-
+const createTables = (db: ReturnType<typeof newDb>) => {
   db.public.none(`
       CREATE TABLE "events" (
           "id" uuid NOT NULL,
@@ -45,7 +41,9 @@ export function createConnection() {
           CONSTRAINT "pk_user_id" PRIMARY KEY ("id")
       );
     `);
+};
 
+const populateFakeData = (db: ReturnType<typeof newDb>) => {
   mocks.events.forEach((event) => {
     db.public.none(`
         insert into events values('${event.id}', '${event.name}', '${event.date}', '${event.description}', ${event.totalPrice});
@@ -69,6 +67,15 @@ export function createConnection() {
         insert into users values('${user.id}', '${user.email}', '${user.password}');
     `);
   });
+};
+
+export function createConnection() {
+  const db = newDb({
+    noErrorDiagnostic: true,
+  });
+
+  createTables(db);
+  populateFakeData(db);
 
   return db.public;
 }

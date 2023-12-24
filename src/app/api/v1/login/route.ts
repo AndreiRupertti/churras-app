@@ -26,7 +26,7 @@ export async function POST(req: Request, res: NextResponse) {
       );
     }
 
-    const accessToken = jwt.sign(user, process.env.AUTH_TOKEN_KEY);
+    const accessToken = jwt.sign(user, process.env.AUTH_TOKEN_KEY!);
 
     return NextResponse.json({ accessToken });
   } catch (err) {

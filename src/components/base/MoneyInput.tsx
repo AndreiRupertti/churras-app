@@ -24,14 +24,14 @@ export const MoneyInput = forwardRef<Ref, MoneyInputProps>(
     return (
       <label
         role="button"
-        className="text-xl font-semibold flex flex-col gap-2"
+        className="relative text-xl font-semibold flex flex-col gap-2"
       >
         {label}
         <div className="flex flex-row gap-2 items-center">
-          <span className="absolute left-8">{currency}</span>
+          <span className="absolute left-4">{currency}</span>
           <input
             {...inputProps}
-            className={`p-2 pl-10 border-2 rounded-lg ${
+            className={`p-2 w-full pl-10 border-2 rounded-lg ${
               errorText ? "border-red-500" : ""
             }`}
             type="text"
