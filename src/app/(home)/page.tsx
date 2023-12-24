@@ -4,12 +4,17 @@ import { EventList } from "@components/EventList/EventList";
 import "@globals/globals.css";
 import "tailwindcss/tailwind.css";
 import { EventListResponse } from "types/event";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const { items: events = [] } = await getEvents();
 
+  if (!cookies().has("accessToken")) {
+    redirect("/login");
+  }
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <Header text="Agenda de Churras" />
       <EventList events={events} />
       <Footer />

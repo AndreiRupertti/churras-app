@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import { httpClient } from "./http-client";
 import {
   EventInput,
@@ -5,6 +6,7 @@ import {
   EventListResponse,
   Participant,
   ParticipantInput,
+  LoginResponse,
 } from "types/event";
 
 const responseAdapter = <T>(res: Response) => {
@@ -39,5 +41,17 @@ export const ApiClient = {
     return httpClient
       .put(`api/v1/participant/${id}`, input, reqInit)
       .then((res) => responseAdapter<Participant>(res));
+  },
+  login(
+    body: { email: string; passoword: string },
+    reqInit?: RequestInit
+  ): Promise<LoginResponse> {
+    return httpClient
+      .post(`api/v1/login`, body, reqInit)
+      .then((res) => responseAdapter<LoginResponse>(res))
+      .then((data) => {
+        setCookie("accessToken", data.accessToken);
+        return data;
+      });
   },
 };

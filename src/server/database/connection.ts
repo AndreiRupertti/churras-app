@@ -37,6 +37,15 @@ export function createConnection() {
       );
     `);
 
+  db.public.none(`
+      CREATE TABLE "users" (
+          "id" uuid NOT NULL,
+          "email" varchar(255) NOT NULL,
+          "password" varchar(255) NOT NULL,
+          CONSTRAINT "pk_user_id" PRIMARY KEY ("id")
+      );
+    `);
+
   mocks.events.forEach((event) => {
     db.public.none(`
         insert into events values('${event.id}', '${event.name}', '${event.date}', '${event.description}', ${event.totalPrice});
@@ -49,9 +58,9 @@ export function createConnection() {
     `);
   });
 
-  mocks.priceOptions.forEach((p) => {
+  mocks.users.forEach((user) => {
     db.public.none(`
-        insert into price_options values('${p.id}', '${p.eventId}', ${p.amount});
+        insert into users values('${user.id}', '${user.email}', '${user.password}');
     `);
   });
 
