@@ -68,7 +68,7 @@ export const Sidebar: FC<PropsWithChildren<SidebarProps>> = ({
           </div>
         </div>
         <div className="mt-14">{children}</div>
-        <div className="flex justify-center items-end p-10">
+        <div className="flex justify-center items-end p-10 mt-auto">
           <Logo />
         </div>
       </div>
