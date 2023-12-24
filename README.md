@@ -2,6 +2,13 @@
 
 Essa aplicação foi feita com o intuito de aplicar alguns dos meus conhecimentos de NestJS, Typescript e React em uma aplicação complexa o suficiente para tocar em diversos aspectos do desenvolvimento web.
 
+Ao rodar a aplicação, perceberá que é necessário efetuar o "Login" para acessar as páginas com conteúdo. Os dados inciais são populados no inicio da aplicação e você pode usar o seguinte usuário para efetuar o login:
+
+```
+email: trinca@email.com
+password: admin
+```
+
 > ⚠️ Obs: Essa aplicação utiliza um banco de dados postgres em memória (`pg-mem`), logo, sempre que houver um restart na aplicação ou hot-reload, os dados irão voltar para seu estado inicial
 
 ## Getting Started (en)
