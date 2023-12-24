@@ -11,6 +11,10 @@ password: admin
 
 > ⚠️ Obs: Essa aplicação utiliza um banco de dados postgres em memória (`pg-mem`), logo, sempre que houver um restart na aplicação ou hot-reload, os dados irão voltar para seu estado inicial
 
+## Requirements
+
+- Node (>=v18.19.0)
+
 ## Getting Started (en)
 
 
@@ -34,6 +38,48 @@ npm run build && npm run start
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Folder Structure
+
+```
+public
+src
+├── app
+│   ├── actions.ts                   <-- NextJS's Server Actions
+│   ├── api                          <-- NextJS's API Routes
+│   │   └── v1
+│   │       ├── event
+│   │       │   ├── list
+│   │       │   │   └── route.ts
+│   │       │   └── route.ts
+│   │       ├── login
+│   │       │   └── route.ts
+│   │       └── participant
+│   │           ├── [id]
+│   │           │   └── route.ts
+│   │           └── route.ts
+│   ├── (home)
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   ├── login
+│   │   └── page.tsx
+│   └── not-found.tsx
+├── components                      
+│   ├── base                        <-- Dummy Components
+│   ├── EventForm                   <-- Domain Component Example
+│   │   └── EventForm.tsx
+│   ├── ...
+├── enums
+├── globals
+│   └── globals.css
+├── http                            <-- Shared abstraction of fetch API and Domain clients
+│   ├── api-client.ts
+│   └── http-client.ts
+├── server                          <-- Server-only components
+│   ├── database
+│   └── repositories
+├── @types
+└── utils
+```
 
 
 ## Screens
