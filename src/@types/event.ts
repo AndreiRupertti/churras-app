@@ -30,7 +30,7 @@ export interface ParticipantInput {
   name: string;
   amountToPay: number;
   eventId: string;
-  isPaid?: string;
+  isPaid?: boolean;
 }
 
 export interface PriceOption {

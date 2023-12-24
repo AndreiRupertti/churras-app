@@ -3,16 +3,17 @@ import { HTMLAttributes, useState } from "react";
 
 interface ParticipantListItemProps extends HTMLAttributes<HTMLInputElement> {
   initialValue: boolean;
+  id: string;
   name: string;
   amountToPay: number;
-  onToggle?: (value: boolean) => void;
+  onToggle?: (info: { id: string; value: boolean }) => void;
 }
 
 export const ParticipantListItem = (props: ParticipantListItemProps) => {
   const [checkbox, setCheckbox] = useState(props.initialValue);
   const toggleCheckbox = () => {
     setCheckbox(!checkbox);
-    props.onToggle?.(!checkbox);
+    props.onToggle?.({ id: props.id, value: !checkbox });
   };
   return (
     <div className="h-12 p-y-5 border-b-2 border-dotted ">

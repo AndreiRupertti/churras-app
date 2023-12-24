@@ -3,7 +3,7 @@ const baseHeaders = {
 };
 
 export const httpClient = {
-  post(endpoint: string, body: JSONValue, reqConfig: RequestInit = {}) {
+  post(endpoint: string, body: any, reqConfig: RequestInit = {}) {
     return fetch(endpoint, {
       ...reqConfig,
       headers: { ...baseHeaders, ...reqConfig.headers },
@@ -18,7 +18,7 @@ export const httpClient = {
       method: "GET",
     });
   },
-  put(endpoint: string, body: JSONValue, reqConfig: RequestInit = {}) {
+  put(endpoint: string, body: any, reqConfig: RequestInit = {}) {
     return fetch(endpoint, {
       ...reqConfig,
       headers: { ...baseHeaders, ...reqConfig.headers },

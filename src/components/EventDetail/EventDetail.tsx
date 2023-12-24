@@ -28,6 +28,16 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
       );
   };
 
+  const onTogglePaid = (toggleInfo: { value: boolean; id: string }) => {
+    ApiClient.updateParticipant(toggleInfo.id, { isPaid: toggleInfo.value })
+      .then(() => {
+        revalidateEventList();
+      })
+      .catch((err) => {
+        console.log("Silent Error: ", err);
+      });
+  };
+
   return (
     <div className="flex flex-col gap-2 mx-2 md:mx-12 p-5 rounded-lg shadow-2xl border-2 bg-white -mt-24">
       <div className="flex md:flex-row flex-col justify-between mb-8">
@@ -59,7 +69,9 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
           <ParticipantListItem
             initialValue={person.isPaid}
             name={person.name}
+            id={person.id}
             amountToPay={person.amountToPay}
+            onToggle={onTogglePaid}
           />
         </div>
       ))}

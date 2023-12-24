@@ -31,6 +31,6 @@ export async function POST(req: Request, res: NextResponse) {
     return NextResponse.json({ ...insertedEvent, priceOptions });
   } catch (err) {
     console.log(err);
-    return NextResponse.json({ ...err }, { status: 400 });
+    return NextResponse.json(err, { status: 400 });
   }
 }

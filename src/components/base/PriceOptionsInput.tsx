@@ -19,7 +19,7 @@ export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
   const addPrice = () => {
     const value = Number(ref.current?.value.replace(",", ".") ?? "");
     if (ref.current && value) {
-      if (pricesOpts.length + 1 > maxOpts) {
+      if (pricesOpts.length + 1 > Number(maxOpts)) {
         setError(`Máximo de ${maxOpts} opções`);
       } else {
         ref.current.value = "";

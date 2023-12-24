@@ -16,6 +16,15 @@ export const ParticipantRepository = (db: ISchema) => ({
       db.one(`select * from participants where id='${id}'`)
     ) as unknown as Participant;
   },
+  update(id: string, participant: { is_paid: boolean }) {
+    db.none(`
+          UPDATE participants SET is_paid=${participant.is_paid} WHERE id='${id}'
+      `);
+
+    return camelizeKeys(
+      db.one(`select * from participants where id='${id}'`)
+    ) as unknown as Participant;
+  },
   findByEvent(eventId: string) {
     const { rows } = db.query(
       `select * from participants where event_id='${eventId}'`
