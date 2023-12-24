@@ -6,6 +6,7 @@ import { AddParticipantItem } from "@components/AddParticipantItem/AddParticipan
 import { prettyDate } from "@utils/prettyDate";
 import { formatMoney } from "@utils/formatMoney";
 import { revalidateEventList } from "@app/actions";
+import { ApiClient } from "@http/api-client";
 
 interface EventDetailProps {
   event: Event;
@@ -17,21 +18,14 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
   );
 
   const createParticipant = (participantInfo: ParticipantInput) => {
-    fetch("http://localhost:3000/api/v1/participant", {
-      method: "POST",
-      body: JSON.stringify(participantInfo),
-      headers: {
-        "content-type": "application-json",
-      },
-    }).then(async (res) => {
-      const body = await res.json();
-      if (res.status >= 200 && res.status < 400) {
-        setParticipants([...participants, body]);
+    ApiClient.createParticipant(participantInfo)
+      .then((participant) => {
+        setParticipants([...participants, participant]);
         revalidateEventList();
-      } else {
-        alert("Erro ao adicionar participante. Tente novamente por favor!");
-      }
-    });
+      })
+      .catch(() =>
+        alert("Erro ao adicionar participante. Tente novamente por favor!")
+      );
   };
 
   return (

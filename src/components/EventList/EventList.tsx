@@ -9,6 +9,7 @@ import { EventForm } from "@components/EventForm/EventForm";
 import { HTMLAttributes, useState } from "react";
 import { Event, EventInput, EventListResponse } from "types/event";
 import { revalidateEventList } from "@app/actions";
+import { ApiClient } from "@http/api-client";
 
 interface EventListProps extends HTMLAttributes<HTMLDivElement> {
   events: EventListResponse["items"];
@@ -36,24 +37,18 @@ export const EventList = (props: EventListProps) => {
   };
 
   const onSaveEvent = (submitInfo: EventInput) => {
-    fetch("http://localhost:3000/api/v1/event", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(submitInfo),
-    }).then((res) => {
-      console.log(res);
-      if (res.status >= 200 && res.status < 400) {
+    ApiClient.createEvent(submitInfo)
+      .then(() => {
         setOpenCreateEvent(false);
         revalidateEventList();
-      } else {
+      })
+      .catch(() => {
         alert(
           "Erro ao criar o event. Preencha todos os campos e tente novamente!"
         );
-      }
-    });
+      });
   };
+
   // TODO: participants empty state
 
   return (

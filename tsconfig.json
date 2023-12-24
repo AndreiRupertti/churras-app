@@ -40,6 +40,9 @@
       "@globals*": [
         "./src/globals/*"
       ],
+      "@http*": [
+        "./src/http/*"
+      ],
       "@server*": [
         "./src/server/*"
       ],

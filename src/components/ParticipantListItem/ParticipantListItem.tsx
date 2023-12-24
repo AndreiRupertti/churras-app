@@ -16,14 +16,14 @@ export const ParticipantListItem = (props: ParticipantListItemProps) => {
   };
   return (
     <div className="h-12 p-y-5 border-b-2 border-dotted ">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between gap-2">
         <label
           role="button"
-          className="text-xl font-semibold flex flex-row gap-5"
+          className="text-xl  text-nowrap overflow-hidden font-semibold flex flex-row gap-5 shrink"
         >
           <input
             role="button"
-            className="appearance-none w-6 h-6 rounded-full checked:bg-yellow-500 border-2 border-yellow-500 self-center"
+            className="appearance-none min-w-6 w-6 h-6 rounded-full checked:bg-yellow-500 border-2 border-yellow-500 self-center"
             type="checkbox"
             checked={checkbox}
             onChange={toggleCheckbox}
