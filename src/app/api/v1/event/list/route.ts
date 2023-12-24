@@ -6,6 +6,8 @@ import {
 } from "@server/repositories";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const db = conn();
   const events = EventRepository(db).findAll();
