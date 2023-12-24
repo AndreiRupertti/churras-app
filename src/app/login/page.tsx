@@ -6,6 +6,14 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import "tailwindcss/tailwind.css";
 import { Pages } from "@enums/pages";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+  icons: {
+    icon: "/bbq.svg",
+  },
+};
 
 export default async function Login() {
   if (cookies().has("accessToken")) {

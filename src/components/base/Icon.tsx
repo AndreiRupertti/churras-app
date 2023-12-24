@@ -1,9 +1,10 @@
-import BBQIcon from "public/bbq.svg";
-import DollarSignIcon from "public/dollar-sign.svg";
-import PeopleIcon from "public/people.svg";
-import CloseIcon from "public/close.svg";
-import DeleteIcon from "public/delete.svg";
-import { HTMLAttributes } from "react";
+import dynamic from "next/dynamic";
+import { ComponentType, FC, HTMLAttributes } from "react";
+const BBQIcon = dynamic(() => import("public/bbq.svg"));
+const DollarSignIcon = dynamic(() => import("public/dollar-sign.svg"));
+const PeopleIcon = dynamic(() => import("public/people.svg"));
+const CloseIcon = dynamic(() => import("public/close.svg"));
+const DeleteIcon = dynamic(() => import("public/delete.svg"));
 
 const icons = {
   people: PeopleIcon,
@@ -22,7 +23,7 @@ export interface IconProps extends HTMLAttributes<HTMLOrSVGElement> {
 }
 
 export const Icon = ({ size, name, color, ...svgProps }: IconProps) => {
-  const IconComponent = icons[name];
+  const IconComponent = icons[name] as ComponentType<SVGImageElement>;
   const defaultSize = 16;
   const [width, height] = Array.isArray(size)
     ? size
@@ -37,8 +38,9 @@ export const Icon = ({ size, name, color, ...svgProps }: IconProps) => {
   return (
     <IconComponent
       {...svgProps}
-      style={{ width, height }}
       fill={colors[color ?? "primary"]}
+      //@ts-ignore
+      style={{ width, height }}
     />
   );
 };

@@ -8,6 +8,14 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ApiClient } from "@http/api-client";
 import { Pages } from "@enums/pages";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Agenda do Churras",
+  icons: {
+    icon: "/bbq.svg",
+  },
+};
 
 export default async function Home() {
   const { items: events = [] } = await getEvents();
