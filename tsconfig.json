@@ -43,6 +43,9 @@
       "@http*": [
         "./src/http/*"
       ],
+      "@enums*": [
+        "./src/enums/*"
+      ],
       "@server*": [
         "./src/server/*"
       ],

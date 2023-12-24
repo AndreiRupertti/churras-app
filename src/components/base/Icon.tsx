@@ -2,6 +2,7 @@ import BBQIcon from "public/bbq.svg";
 import DollarSignIcon from "public/dollar-sign.svg";
 import PeopleIcon from "public/people.svg";
 import CloseIcon from "public/close.svg";
+import DeleteIcon from "public/delete.svg";
 import { HTMLAttributes } from "react";
 
 const icons = {
@@ -9,6 +10,7 @@ const icons = {
   dollarSign: DollarSignIcon,
   bbq: BBQIcon,
   close: CloseIcon,
+  delete: DeleteIcon,
 };
 
 type Size = number;

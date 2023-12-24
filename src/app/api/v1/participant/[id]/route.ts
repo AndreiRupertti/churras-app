@@ -28,3 +28,20 @@ export async function PUT(
     return NextResponse.json(err, { status: 400 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string; slug: string } }
+) {
+  const participantId = params.id ?? params.slug;
+  try {
+    const db = conn();
+
+    await ParticipantRepository(db).delete(participantId);
+
+    return NextResponse.json({}, { status: 200 });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(err, { status: 400 });
+  }
+}

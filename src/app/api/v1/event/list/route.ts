@@ -24,6 +24,5 @@ export async function GET() {
       priceOptions: priceOptions.map((option) => option.amount),
     };
   });
-
   return NextResponse.json({ items });
 }

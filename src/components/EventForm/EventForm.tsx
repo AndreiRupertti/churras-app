@@ -40,10 +40,10 @@ export const EventForm: FunctionComponent<EventFormProps> = (props) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="flex flex-col justify-between h-full">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 md:w-10/12">
           <TextInput id="name" label="Nome do Evento:" />
-          <MoneyInput id="totalPrice" label="Valor Total:" currency="R$" />
           <DatePickerInput id="date" label="Data do Evento:" />
+          <MoneyInput id="totalPrice" label="Valor Total:" currency="R$" />
           <PriceOptionsInput
             id="priceOptions"
             label="Opções de preço:"
@@ -53,7 +53,7 @@ export const EventForm: FunctionComponent<EventFormProps> = (props) => {
           <TextAreaInput
             id="description"
             label="Descrição:"
-            className="w-full md:w-10/12"
+            className="w-full"
           />
         </div>
         <div className="flex flex-col md:flex-row justify-end md:justify-end gap-3 h-40 md:h-auto p-5 pt-14">

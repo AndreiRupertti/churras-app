@@ -6,13 +6,16 @@ import "tailwindcss/tailwind.css";
 import { EventListResponse } from "types/event";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { ApiClient } from "@http/api-client";
+import { Pages } from "@enums/pages";
 
 export default async function Home() {
   const { items: events = [] } = await getEvents();
 
   if (!cookies().has("accessToken")) {
-    redirect("/login");
+    redirect(Pages.LOGIN);
   }
+
   return (
     <div className="flex flex-col h-full">
       <Header text="Agenda de Churras" />
@@ -23,12 +26,12 @@ export default async function Home() {
 }
 
 const getEvents = async (): Promise<EventListResponse> => {
-  return fetch(`${process.env.API_URL}/event/list`, {
+  const fallback = { items: [] };
+  const reqConfig = {
     next: { revalidate: 0, tags: ["event-list"] },
-  })
-    .then((res) => res.json())
-    .catch((e) => {
-      console.log(e);
-      return Promise.resolve({ items: [] });
-    });
+  };
+  return ApiClient.getEvents(reqConfig).catch((e) => {
+    console.log(e);
+    return Promise.resolve(fallback);
+  });
 };

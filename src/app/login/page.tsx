@@ -5,10 +5,11 @@ import "@globals/globals.css";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import "tailwindcss/tailwind.css";
+import { Pages } from "@enums/pages";
 
 export default async function Login() {
   if (cookies().has("accessToken")) {
-    redirect("/");
+    redirect(Pages.HOME);
   }
   return (
     <div className="font-base flex flex-col bg-yellow-300 min-h-screen">

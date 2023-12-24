@@ -26,4 +26,11 @@ export const httpClient = {
       body: JSON.stringify(body),
     });
   },
+  delete(endpoint: string, reqConfig: RequestInit = {}) {
+    return fetch(endpoint, {
+      ...reqConfig,
+      headers: { ...baseHeaders, ...reqConfig.headers },
+      method: "DELETE",
+    });
+  },
 };

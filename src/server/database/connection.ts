@@ -58,6 +58,12 @@ export function createConnection() {
     `);
   });
 
+  mocks.priceOptions.forEach((p) => {
+    db.public.none(`
+        insert into price_options values('${p.id}', '${p.eventId}', ${p.amount});
+    `);
+  });
+
   mocks.users.forEach((user) => {
     db.public.none(`
         insert into users values('${user.id}', '${user.email}', '${user.password}');

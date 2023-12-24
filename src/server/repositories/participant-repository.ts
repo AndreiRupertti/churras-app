@@ -25,6 +25,13 @@ export const ParticipantRepository = (db: ISchema) => ({
       db.one(`select * from participants where id='${id}'`)
     ) as unknown as Participant;
   },
+  delete(id: string) {
+    db.none(`
+          DELETE FROM participants WHERE id='${id}'
+      `);
+
+    return true;
+  },
   findByEvent(eventId: string) {
     const { rows } = db.query(
       `select * from participants where event_id='${eventId}'`

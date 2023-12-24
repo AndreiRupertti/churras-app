@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@components/base/Button";
-import { ApiClient } from "@http/api-client";
 import { TextInput } from "@components/base/TextInput";
 import React, {
   ChangeEvent,
@@ -11,6 +10,7 @@ import React, {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+import * as actions from "@app/actions";
 
 interface LoginFormProps {}
 
@@ -38,14 +38,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props) => {
       password: password.value,
     };
 
-    ApiClient.login(submitInfo)
-      .then((res) => {
-        router.push("/");
-      })
-      .catch((err) => {
-        console.log(">>>>> err >>>> ", err);
-        setSubmitError("Email ou senha inválido. Tente novamente.");
-      });
+    actions.login(submitInfo);
   };
 
   const validateEmail = (event: ChangeEvent<HTMLInputElement>) => {

@@ -1,12 +1,12 @@
+import { revalidateEventList } from "@app/actions";
+import { AddParticipantItem } from "@components/AddParticipantItem/AddParticipantItem";
+import { TextIcon } from "@components/base/TextIcon";
+import { ParticipantListItem } from "@components/ParticipantListItem/ParticipantListItem";
+import { ApiClient } from "@http/api-client";
+import { formatMoney } from "@utils/formatMoney";
+import { prettyDate } from "@utils/prettyDate";
 import { FC, useState } from "react";
 import { Event, Participant, ParticipantInput } from "types/event";
-import { ParticipantListItem } from "@components/ParticipantListItem/ParticipantListItem";
-import { TextIcon } from "@components/base/TextIcon";
-import { AddParticipantItem } from "@components/AddParticipantItem/AddParticipantItem";
-import { prettyDate } from "@utils/prettyDate";
-import { formatMoney } from "@utils/formatMoney";
-import { revalidateEventList } from "@app/actions";
-import { ApiClient } from "@http/api-client";
 
 interface EventDetailProps {
   event: Event;
@@ -20,8 +20,8 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
   const createParticipant = (participantInfo: ParticipantInput) => {
     ApiClient.createParticipant(participantInfo)
       .then((participant) => {
-        setParticipants([...participants, participant]);
         revalidateEventList();
+        setParticipants([...participants, participant]);
       })
       .catch(() =>
         alert("Erro ao adicionar participante. Tente novamente por favor!")
@@ -38,6 +38,20 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
       });
   };
 
+  const onParticipantDelete = (id: string, indexOfParticipant: number) => {
+    ApiClient.deleteParticipant(id)
+      .then(() => {
+        revalidateEventList();
+        const newList = participants.filter(
+          (participant) => participant.id !== id
+        );
+        setParticipants(newList);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Erro ao remover participante. Tente novamente por favor!");
+      });
+  };
   return (
     <div className="flex flex-col gap-2 mx-2 md:mx-12 p-5 rounded-lg shadow-2xl border-2 bg-white -mt-24">
       <div className="flex md:flex-row flex-col justify-between mb-8">
@@ -64,7 +78,7 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
           />
         </div>
       </div>
-      {participants.map((person) => (
+      {participants.map((person, index) => (
         <div key={person.id}>
           <ParticipantListItem
             initialValue={person.isPaid}
@@ -72,6 +86,7 @@ export const EventDetail: FC<EventDetailProps> = ({ event }) => {
             id={person.id}
             amountToPay={person.amountToPay}
             onToggle={onTogglePaid}
+            onDelete={() => onParticipantDelete(person.id, index)}
           />
         </div>
       ))}
