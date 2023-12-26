@@ -36,6 +36,12 @@ Or, run the build server:
 npm run build && npm run start
 ```
 
+For tests, run:
+
+```bash
+npm run test
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Folder Structure
