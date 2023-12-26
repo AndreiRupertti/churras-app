@@ -1,4 +1,3 @@
-import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { UserRepository } from "@server/repositories";
 import conn from "@server/database/connection";
@@ -18,7 +17,6 @@ export async function POST(req: Request, res: NextResponse) {
     const input = await loginSchema.parseAsync(body);
 
     const user = await UserRepository(db).findOne(input);
-
     if (!user) {
       return NextResponse.json(
         { error: "email ou senha inválidos" },
@@ -30,6 +28,7 @@ export async function POST(req: Request, res: NextResponse) {
 
     return NextResponse.json({ accessToken });
   } catch (err) {
+    console.log("err");
     console.log(err);
     return NextResponse.json(err, { status: 400 });
   }

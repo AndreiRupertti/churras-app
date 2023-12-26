@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ApiClient } from "@http/api-client";
 import { Pages } from "@enums/pages";
+import { isAuthenticated } from "@server/auth";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   const { items: events = [] } = await getEvents();
 
-  if (!cookies().has("accessToken")) {
+  if (!isAuthenticated()) {
     redirect(Pages.LOGIN);
   }
 
@@ -34,9 +35,11 @@ export default async function Home() {
 }
 
 const getEvents = async (): Promise<EventListResponse> => {
+  const { value: token } = cookies().get("accessToken") ?? {};
   const fallback = { items: [] };
   const reqConfig = {
     next: { revalidate: 0, tags: ["event-list"] },
+    headers: { authorization: token! },
   };
   return ApiClient.getEvents(reqConfig).catch((e) => {
     console.log(e);

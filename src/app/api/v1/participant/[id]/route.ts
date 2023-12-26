@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ParticipantRepository } from "@server/repositories";
 import conn from "@server/database/connection";
 import z from "zod";
+import { auth, unauthorized } from "@server/auth";
 
 const participantInputSchema = z.object({
   isPaid: z.boolean(),
@@ -16,6 +17,9 @@ export async function PUT(
   const participantId = params.id ?? params.slug;
   try {
     const db = conn();
+    const user = await auth(req, db);
+    if (!user) return unauthorized();
+
     const input = await participantInputSchema.parseAsync(body);
 
     const participant = await ParticipantRepository(db).update(participantId, {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { EventRepository, PriceOptionsRepository } from "@server/repositories";
 import conn from "@server/database/connection";
 import z from "zod";
+import { auth, unauthorized } from "@server/auth";
 
 const eventInputSchema = z.object({
   name: z.string().min(1).max(100),
@@ -16,6 +17,10 @@ export async function POST(req: Request, res: NextResponse) {
 
   try {
     const db = conn();
+
+    const user = await auth(req, db);
+    if (!user) return unauthorized();
+
     const event = await eventInputSchema.parseAsync(body);
 
     const insertedEvent = await EventRepository(db).insert(event);

@@ -5,11 +5,16 @@ import {
   ParticipantRepository,
 } from "@server/repositories";
 import { NextResponse } from "next/server";
+import { auth, unauthorized } from "@server/auth";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: Request) {
   const db = conn();
+
+  const user = await auth(req, db);
+  if (!user) return unauthorized();
+
   const events = EventRepository(db).findAll();
 
   const participantRepo = ParticipantRepository(db);

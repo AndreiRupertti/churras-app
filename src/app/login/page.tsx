@@ -4,6 +4,7 @@ import { LoginForm } from "@components/LoginForm/LoginForm";
 import "@globals/globals.css";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { isAuthenticated } from "@server/auth";
 import "tailwindcss/tailwind.css";
 import { Pages } from "@enums/pages";
 import { Metadata } from "next";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Login() {
-  if (cookies().has("accessToken")) {
+  if (isAuthenticated()) {
     redirect(Pages.HOME);
   }
   return (
