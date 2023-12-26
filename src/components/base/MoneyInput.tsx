@@ -4,10 +4,14 @@ interface MoneyInputProps extends HTMLAttributes<HTMLInputElement> {
   label: string;
   currency: "R$";
   errorText?: string;
+  placeholder?: string;
 }
 type Ref = HTMLInputElement;
 export const MoneyInput = forwardRef<Ref, MoneyInputProps>(
-  ({ errorText, label, currency, children, ...inputProps }, ref) => {
+  (
+    { errorText, label, currency, placeholder, children, ...inputProps },
+    ref
+  ) => {
     const validateValue = (value: string) => {
       const v = value.replace(",", ".");
       const price = Number(v);
@@ -31,6 +35,7 @@ export const MoneyInput = forwardRef<Ref, MoneyInputProps>(
           <span className="absolute left-4">{currency}</span>
           <input
             {...inputProps}
+            placeholder={placeholder}
             className={`p-2 w-full pl-10 border-2 rounded-lg ${
               errorText ? "border-red-500" : ""
             }`}

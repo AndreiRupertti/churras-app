@@ -25,43 +25,49 @@
       }
     ],
     "paths": {
-      "@app*": [
+      "@app/*": [
         "./src/app/*"
       ],
-      "@public*": [
+      "@public/*": [
         "./public/*"
       ],
-      "@components*": [
+      "@components/*": [
         "./src/components/*"
       ],
-      "@utils*": [
+      "@utils/*": [
         "./src/utils/*"
       ],
-      "@globals*": [
+      "@globals/*": [
         "./src/globals/*"
       ],
-      "@http*": [
+      "@http/*": [
         "./src/http/*"
       ],
-      "@enums*": [
+      "@enums/*": [
         "./src/enums/*"
       ],
-      "@server*": [
+      "@server/*": [
         "./src/server/*"
       ],
-      "types*": [
+      "types/*": [
         "./src/@types/*"
       ]
     },
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["jest"],
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": [
-    "next-env.d.ts",
     "**/**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "**/**/*.tsx",
+    "**/**/*.spec.ts",
+    "**/**/*.spec.tsx",
+    "**/**/*.d.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "./jest.setup.js",
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

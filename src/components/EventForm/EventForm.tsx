@@ -3,7 +3,7 @@ import { MoneyInput } from "@components/base/MoneyInput";
 import { PriceOptionsInput } from "@components/base/PriceOptionsInput";
 import { TextAreaInput } from "@components/base/TextAreaInput";
 import { TextInput } from "@components/base/TextInput";
-import { DatePickerInput } from "@componentsbase/DatePickerInput";
+import { DatePickerInput } from "@components/base/DatePickerInput";
 import { FormEvent, FunctionComponent, useState } from "react";
 
 interface EventFormProps {

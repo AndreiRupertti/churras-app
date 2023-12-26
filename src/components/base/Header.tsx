@@ -1,5 +1,7 @@
 import bg from "public/bbq-pattern.png";
 import { FC, PropsWithChildren } from "react";
+import { LogoutButton } from "@components/LogoutButton/LogoutButton";
+import { isAuthenticated } from "@server/auth";
 
 interface Header extends PropsWithChildren {
   text: string;
@@ -13,6 +15,7 @@ export const Header: FC<Header> = (props) => {
         backgroundImage: `url(${bg.src})`,
       }}
     >
+      {isAuthenticated() && <LogoutButton />}
       <h1 className="text-4xl md:text-5xl font-extrabold">{props.text}</h1>
       {props.children}
     </div>

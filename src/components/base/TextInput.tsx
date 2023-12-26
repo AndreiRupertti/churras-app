@@ -33,10 +33,7 @@ export const TextInput = forwardRef<Ref, TextInputProps>(
         : "border-2";
 
     return (
-      <label
-        role="button"
-        className="text-xl font-semibold flex flex-col gap-1"
-      >
+      <label className="text-xl font-semibold flex flex-col gap-1">
         {label}
         <input
           {...inputProps}

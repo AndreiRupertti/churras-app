@@ -7,6 +7,7 @@ interface PriceOptionsInputProps
   onInput?: (priceOpts: number[]) => void;
   label: string;
   maxOpts: string | number;
+  placeholder?: string;
 }
 
 export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
@@ -14,7 +15,7 @@ export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
   const [pricesOpts, setPriceOpts] = useState<number[]>([]);
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const { label, onInput, maxOpts, ...inputProps } = props;
+  const { label, onInput, maxOpts, placeholder, ...inputProps } = props;
 
   const addPrice = () => {
     const value = Number(ref.current?.value.replace(",", ".") ?? "");
@@ -48,6 +49,7 @@ export const PriceOptionsInput = (props: PriceOptionsInputProps) => {
         label="Opções de preço:"
         errorText={error}
         ref={ref}
+        placeholder={placeholder}
         {...inputProps}
       >
         <div

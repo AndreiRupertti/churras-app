@@ -7,15 +7,16 @@ import React, {
   FormEvent,
   FunctionComponent,
   useEffect,
+  useRef,
   useState,
 } from "react";
-import { useRouter } from "next/navigation";
 import * as actions from "@app/actions";
 
 interface LoginFormProps {}
 
 export const LoginForm: FunctionComponent<LoginFormProps> = (props) => {
-  const router = useRouter();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [allowLogin, setAllowLogin] = useState(true);
   const [submitError, setSubmitError] = useState("");
   const [formErrors, setFormErrors] = useState<{
@@ -30,15 +31,14 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props) => {
     e.preventDefault();
     setSubmitError("");
 
-    // @ts-ignore
-    const [email, password] = e.target;
-
     const submitInfo = {
-      email: email.value,
-      password: password.value,
+      email: emailRef.current?.value ?? "",
+      password: passwordRef.current?.value ?? "",
     };
 
-    actions.login(submitInfo);
+    actions.login(submitInfo).catch(() => {
+      setSubmitError("Email ou senha inválidos");
+    });
   };
 
   const validateEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -75,6 +75,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props) => {
       <form onSubmit={onSubmit}>
         <div className="flex flex-col gap-10">
           <TextInput
+            ref={emailRef}
             id="email"
             type="email"
             label="Email:"
@@ -83,6 +84,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props) => {
             flat
           />
           <TextInput
+            ref={passwordRef}
             id="password"
             label="Senha:"
             onBlur={validatePassword}

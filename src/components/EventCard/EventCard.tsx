@@ -2,7 +2,7 @@ import { Badge } from "@components/base/Badge";
 import { TextIcon } from "@components/base/TextIcon";
 import { formatMoney } from "@utils/formatMoney";
 import { prettyDate } from "@utils/prettyDate";
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 interface EventCardProps extends HTMLAttributes<HTMLDivElement> {
   date: string;
